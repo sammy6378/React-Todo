@@ -16,13 +16,13 @@ function reducer(todos:any, action:any) {
     case ACTIONS.ADD_TODO:
       return [...todos, newTodo(action.payload.name)];
     case ACTIONS.REMOVE_TODO:
-      return todos.filter(todo => todo.id !== action.payload.id);
+      return todos.filter((todo: { id: any; }) => todo.id !== action.payload.id);
     case ACTIONS.COMPLETE:
-      return todos.map(todo =>
+      return todos.map((todo: { id: any; complete: any; }) =>
         todo.id === action.payload.id ? { ...todo, complete: !todo.complete} : todo
       );
     case ACTIONS.CLEAR_COMPLETED:
-      return todos.filter(todo => !todo.complete);
+      return todos.filter((todo: { complete: any; }) => !todo.complete);
     default:
       return todos;
   }
@@ -92,7 +92,7 @@ function App() {
 
       <div className="add">
       <div className="tasks">
-      {todos && todos.map(todo => (
+      {todos && todos.map((todo:{name: string, complete: boolean, id: number}) => (
         <div key={todo.id} className='item'>
           <label className="custom-checkbox">
           <input
