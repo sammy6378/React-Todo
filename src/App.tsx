@@ -16,20 +16,20 @@ function reducer(todos:any, action:any) {
     case ACTIONS.ADD_TODO:
       return [...todos, newTodo(action.payload.name)];
     case ACTIONS.REMOVE_TODO:
-      return todos.filter((todo: { id: any; }) => todo.id !== action.payload.id);
+      return todos.filter((todo: { id: number; }) => todo.id !== action.payload.id);
     case ACTIONS.COMPLETE:
-      return todos.map((todo: { id: any; complete: any; }) =>
+      return todos.map((todo: { id: number; complete: boolean; }) =>
         todo.id === action.payload.id ? { ...todo, complete: !todo.complete} : todo
       );
     case ACTIONS.CLEAR_COMPLETED:
-      return todos.filter((todo: { complete: any; }) => !todo.complete);
+      return todos.filter((todo: { complete: boolean; }) => !todo.complete);
     default:
       return todos;
   }
 }
 
 function newTodo(name:string) {
-  return {name: name, complete: false };
+  return {id:Date.now(),name: name, complete: false };
 }
 
 function App() {
